@@ -13,6 +13,10 @@ import memeRouter from "./routes/meme.js";
 
 const app = express();
 
+if (config.isProd) {
+  app.set("trust proxy", 1);
+}
+
 app.use(helmet());
 app.use(cors({ origin: config.frontendUrl }));
 app.use(express.json({ limit: "100kb" }));
