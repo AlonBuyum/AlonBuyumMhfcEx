@@ -1,0 +1,13 @@
+:root {
+  --crypto-accent: #f59e0b;
+}
+
+.p-card.section-card {
+  background: rgba(30, 41, 59, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--surface-border);
+}
+
+.p-button.p-button-primary {
+  font-weight: 600;
+}

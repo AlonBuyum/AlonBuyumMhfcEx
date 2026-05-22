@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Bitcoin holds steady above $60K as ETFs continue net inflows",
+    "url": "https://example.com/news/bitcoin-etf-inflows",
+    "source": "CryptoDaily",
+    "publishedAt": "2026-05-22T10:00:00Z"
+  },
+  {
+    "title": "Ethereum's Pectra upgrade goes live, slashing L2 transaction costs",
+    "url": "https://example.com/news/ethereum-pectra-live",
+    "source": "BlockTimes",
+    "publishedAt": "2026-05-22T08:30:00Z"
+  },
+  {
+    "title": "Solana DeFi TVL crosses $10B, leading altcoin layer-1 race",
+    "url": "https://example.com/news/solana-defi-tvl",
+    "source": "DeFi Pulse",
+    "publishedAt": "2026-05-21T16:45:00Z"
+  },
+  {
+    "title": "SEC approves spot Ether ETF options trading, opening hedging market",
+    "url": "https://example.com/news/sec-ether-options",
+    "source": "Regulatory Watch",
+    "publishedAt": "2026-05-21T14:20:00Z"
+  },
+  {
+    "title": "Stablecoin market cap hits new all-time high of $250B",
+    "url": "https://example.com/news/stablecoin-ath",
+    "source": "MarketReport",
+    "publishedAt": "2026-05-21T11:10:00Z"
+  },
+  {
+    "title": "Major bank pilots tokenized treasury bonds on public Ethereum",
+    "url": "https://example.com/news/bank-tokenized-treasuries",
+    "source": "FinTechWire",
+    "publishedAt": "2026-05-20T18:00:00Z"
+  },
+  {
+    "title": "Bitcoin mining difficulty hits record after halving year settles",
+    "url": "https://example.com/news/btc-mining-difficulty",
+    "source": "MinerHub",
+    "publishedAt": "2026-05-20T12:15:00Z"
+  },
+  {
+    "title": "Layer-2 networks now process more transactions than Ethereum mainnet",
+    "url": "https://example.com/news/l2-transaction-share",
+    "source": "L2Tracker",
+    "publishedAt": "2026-05-19T09:00:00Z"
+  }
+]
