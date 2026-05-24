@@ -22,8 +22,6 @@ export const config = {
 
   databaseUrl: process.env.DATABASE_URL?.trim() || "",
   frontendUrl: optional("FRONTEND_URL", "http://localhost:5173"),
-
-  cryptoPanicKey: process.env.CRYPTOPANIC_KEY?.trim() || "",
 };
 
 export type AppConfig = typeof config;

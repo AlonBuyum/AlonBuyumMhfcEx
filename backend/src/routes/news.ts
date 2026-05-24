@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { fetchNews } from "../services/cryptopanic.js";
+import { fetchNews } from "../services/coindesk.js";
 
 const router = Router();
 

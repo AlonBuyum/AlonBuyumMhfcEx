@@ -25,6 +25,7 @@ A small full-stack crypto dashboard: auth + daily market news, prices, and a fre
 | Database driver | `pg` (raw, no ORM) | Single `users` table doesn't justify an ORM. A tiny `query<T>(sql, params)` helper keeps route code clean |
 | Auth | JWT in `localStorage` + Bearer header | Stateless; works cleanly across separate FE/BE deploys (no cookie-domain issues). Known trade-off: localStorage is XSS-exposed — see "Known limitations" |
 | Caching | In-memory `Map` with TTL | Prices 60s, news 5min. Reduces external API quota usage; cold-start friendly |
+| News source | CoinDesk RSS feed + bundled fallback | No API key required (public RSS); parsed with `rss-parser`. Falls back to a bundled JSON if upstream is unavailable |
 | Meme source | `r/cryptomemes` JSON + bundled fallback | No API key, no account. Fallback ensures the dashboard always renders something |
 
 ## Local Development
@@ -38,7 +39,7 @@ A small full-stack crypto dashboard: auth + daily market news, prices, and a fre
 
 ```bash
 cd backend
-cp .env.example .env       # then fill in JWT_SECRET, DATABASE_URL, CRYPTOPANIC_KEY
+cp .env.example .env       # then fill in JWT_SECRET, DATABASE_URL
 npm install
 npm run dev                # listens on http://localhost:4000
 ```
@@ -82,7 +83,7 @@ A read-only Postgres user is provisioned. Connection string is in the submission
 - **Render free web tier sleeps after 15 min of inactivity** — first request after sleep takes ~30 seconds (cold start).
 - **Render Postgres free tier deletes the DB after 90 days** — backup with `pg_dump` and re-provision if you need to keep going past that.
 - **JWT in localStorage** — XSS-exposed. In production, switch to httpOnly cookies + CSRF token. Documented this trade-off in the explanation file.
-- **CryptoPanic rate limits** — free tier is 5 RPM. The 5-minute server-side cache handles this; a bundled fallback JSON is served if CryptoPanic is unavailable or no key is configured.
+- **CoinDesk RSS feed** — public, no API key. The 5-minute server-side cache keeps load low. A bundled fallback JSON is served if the upstream is unavailable.
 - **Corporate MITM proxies** can break Reddit fetches locally (cert chain rejection). The meme endpoint falls back to a bundled JSON. On Render, no proxy = Reddit works.
 
 ## Project Structure
