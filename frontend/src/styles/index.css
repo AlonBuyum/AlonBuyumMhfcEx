@@ -77,6 +77,15 @@ body {
   margin-top: 1.25rem;
 }
 
+.form-stack .p-password {
+  display: flex;
+  width: 100%;
+}
+.form-stack .p-password .p-password-input {
+  flex: 1 1 auto;
+  width: 100%;
+}
+
 .muted {
   color: var(--text-color-secondary);
   font-size: 0.875rem;

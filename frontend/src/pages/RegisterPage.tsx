@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card } from "primereact/card";
 import { InputText } from "primereact/inputtext";
@@ -14,78 +14,103 @@ import { FormField } from "../components/FormField";
 import { useAuth } from "../hooks/useAuth";
 
 export function RegisterPage() {
-  const navigate = useNavigate();
-  const { signIn } = useAuth();
-  const [serverError, setServerError] = useState<string | null>(null);
+	const navigate = useNavigate();
+	const { signIn } = useAuth();
+	const [serverError, setServerError] = useState<string | null>(null);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: { email: "", name: "", password: "" },
-  });
+	const {
+		register,
+		handleSubmit,
+		control,
+		formState: { errors, isSubmitting },
+	} = useForm<RegisterFormValues>({
+		resolver: zodResolver(registerSchema),
+		defaultValues: { email: "", name: "", password: "" },
+	});
 
-  const onSubmit = async (values: RegisterFormValues) => {
-    setServerError(null);
-    try {
-      const res = await registerApi(values);
-      signIn(res.token, res.user);
-      navigate("/", { replace: true });
-    } catch (err) {
-      setServerError(extractErrorMessage(err));
-    }
-  };
+	const onSubmit = async (values: RegisterFormValues) => {
+		setServerError(null);
+		try {
+			const res = await registerApi(values);
+			signIn(res.token, res.user);
+			navigate("/", { replace: true });
+		} catch (err) {
+			setServerError(extractErrorMessage(err));
+		}
+	};
 
-  return (
-    <div className="auth-page">
-      <Card title="Create your account" className="auth-card">
-        <form onSubmit={handleSubmit(onSubmit)} className="form-stack" noValidate>
-          {serverError ? <Message severity="error" text={serverError} /> : null}
-          <FormField label="Name" htmlFor="name" required error={errors.name}>
-            <InputText
-              id="name"
-              autoComplete="name"
-              autoFocus
-              {...register("name")}
-              invalid={Boolean(errors.name)}
-              style={{ width: "100%" }}
-            />
-          </FormField>
-          <FormField label="Email" htmlFor="email" required error={errors.email}>
-            <InputText
-              id="email"
-              type="email"
-              autoComplete="email"
-              {...register("email")}
-              invalid={Boolean(errors.email)}
-              style={{ width: "100%" }}
-            />
-          </FormField>
-          <FormField label="Password" htmlFor="password" required error={errors.password}>
-            <Password
-              inputId="password"
-              autoComplete="new-password"
-              toggleMask
-              {...register("password")}
-              invalid={Boolean(errors.password)}
-              inputStyle={{ width: "100%" }}
-              style={{ width: "100%" }}
-            />
-          </FormField>
-          <Button
-            type="submit"
-            label="Create account"
-            icon="pi pi-user-plus"
-            loading={isSubmitting}
-            style={{ width: "100%" }}
-          />
-          <div className="muted" style={{ textAlign: "center" }}>
-            Already registered? <Link to="/login">Sign in</Link>
-          </div>
-        </form>
-      </Card>
-    </div>
-  );
+	return (
+		<div className="auth-page">
+			<Card title="Create your account" className="auth-card">
+				<form
+					onSubmit={handleSubmit(onSubmit)}
+					className="form-stack"
+					noValidate
+				>
+					{serverError ? <Message severity="error" text={serverError} /> : null}
+					<FormField label="Name" htmlFor="name" required error={errors.name}>
+						<InputText
+							id="name"
+							autoComplete="name"
+							autoFocus
+							{...register("name")}
+							invalid={Boolean(errors.name)}
+							style={{ width: "100%" }}
+						/>
+					</FormField>
+					<FormField
+						label="Email"
+						htmlFor="email"
+						required
+						error={errors.email}
+					>
+						<InputText
+							id="email"
+							type="email"
+							autoComplete="email"
+							{...register("email")}
+							invalid={Boolean(errors.email)}
+							style={{ width: "100%" }}
+						/>
+					</FormField>
+					<FormField
+						label="Password"
+						htmlFor="password"
+						required
+						error={errors.password}
+					>
+						<Controller
+							name="password"
+							control={control}
+							render={({ field, fieldState }) => (
+								<Password
+									id={field.name}
+									inputId="password"
+									inputRef={field.ref}
+									autoComplete="new-password"
+									toggleMask
+									value={field.value}
+									onChange={(e) => field.onChange(e.target.value)}
+									onBlur={field.onBlur}
+									invalid={Boolean(fieldState.error)}
+									inputStyle={{ width: "100%" }}
+									style={{ width: "100%" }}
+								/>
+							)}
+						/>
+					</FormField>
+					<Button
+						type="submit"
+						label="Create account"
+						icon="pi pi-user-plus"
+						loading={isSubmitting}
+						style={{ width: "100%" }}
+					/>
+					<div className="muted" style={{ textAlign: "center" }}>
+						Already registered? <Link to="/login">Sign in</Link>
+					</div>
+				</form>
+			</Card>
+		</div>
+	);
 }

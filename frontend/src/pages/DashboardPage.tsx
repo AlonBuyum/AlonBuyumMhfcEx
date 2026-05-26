@@ -4,13 +4,13 @@ import { PricesSection } from "../components/PricesSection";
 import { MemeSection } from "../components/MemeSection";
 
 export function DashboardPage() {
-  return (
-    <DashboardLayout>
-      <div className="dashboard-grid">
-        <NewsSection />
-        <PricesSection />
-        <MemeSection />
-      </div>
-    </DashboardLayout>
-  );
+	return (
+		<DashboardLayout>
+			<div className="dashboard-grid">
+				<NewsSection />
+				<PricesSection />
+				<MemeSection />
+			</div>
+		</DashboardLayout>
+	);
 }

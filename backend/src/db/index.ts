@@ -10,9 +10,12 @@ function getPool(): pg.Pool {
   if (!config.databaseUrl) {
     throw new Error("DATABASE_URL is not configured");
   }
+  // Local Postgres needs no SSL, any remote host (e.g. Render) requires it.
+  // turned off for local dev server, but still works for  the remote DB too.
+  const isLocalDb = /@(localhost|127\.0\.0\.1)\b/.test(config.databaseUrl);
   pool = new Pool({
     connectionString: config.databaseUrl,
-    ssl: config.isProd ? { rejectUnauthorized: false } : undefined,
+    ssl: isLocalDb ? undefined : { rejectUnauthorized: false },
     max: 10,
   });
   pool.on("error", (err) => {
