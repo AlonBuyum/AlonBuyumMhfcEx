@@ -1,16 +1,11 @@
 # Crypto Advisor
 
-A small full-stack crypto dashboard: auth + daily market news, prices, and a fresh meme each refresh.
+A small fullstack crypto dashboard: auth + daily market news, prices, and a fresh meme each refresh.
 
 - **Frontend:** React + Vite + TypeScript + PrimeReact, deployed on Vercel
 - **Backend:** Node + Express + TypeScript, deployed on Render
 - **Database:** PostgreSQL (Render free tier — 90-day expiry)
 - **Auth:** JWT (Bearer tokens)
-
-## Live URLs
-
-- **App:** _add Vercel URL here_
-- **API:** _add Render URL here_
 
 ## Stack & Reasoning
 
@@ -33,7 +28,7 @@ A small full-stack crypto dashboard: auth + daily market news, prices, and a fre
 ### Prerequisites
 
 - Node.js 20 or later (tested on 24)
-- PostgreSQL (any flavor that accepts a connection string — local install, Docker, or hosted free tier)
+- PostgreSQL (any type that accepts a connection string )
 
 ### Backend
 
@@ -74,17 +69,11 @@ TOKEN="..."
 curl -H "Authorization: Bearer $TOKEN" http://localhost:4000/api/prices
 ```
 
-## Deployed Database Access (for reviewers)
-
-A read-only Postgres user is provisioned. Connection string is in the submission email (not committed here).
-
 ## Known Limitations
 
 - **Render free web tier sleeps after 15 min of inactivity** — first request after sleep takes ~30 seconds (cold start).
 - **Render Postgres free tier deletes the DB after 90 days** — backup with `pg_dump` and re-provision if you need to keep going past that.
 - **JWT in localStorage** — XSS-exposed. In production, switch to httpOnly cookies + CSRF token. Documented this trade-off in the explanation file.
-- **CoinDesk RSS feed** — public, no API key. The 5-minute server-side cache keeps load low. A bundled fallback JSON is served if the upstream is unavailable.
-- **Corporate MITM proxies** can break Reddit fetches locally (cert chain rejection). The meme endpoint falls back to a bundled JSON. On Render, no proxy = Reddit works.
 
 ## Project Structure
 
