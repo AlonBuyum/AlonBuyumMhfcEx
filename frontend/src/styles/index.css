@@ -77,12 +77,17 @@ body {
   margin-top: 1.25rem;
 }
 
+/* PrimeReact's Password wraps the <input> in a .p-icon-field div that does not
+   grow on its own, so width:100% must be applied at every level to fill the form. */
 .form-stack .p-password {
   display: flex;
   width: 100%;
 }
-.form-stack .p-password .p-password-input {
+.form-stack .p-password .p-icon-field {
   flex: 1 1 auto;
+  width: 100%;
+}
+.form-stack .p-password .p-password-input {
   width: 100%;
 }
 
