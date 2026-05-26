@@ -22,6 +22,10 @@ export const config = {
 
   databaseUrl: process.env.DATABASE_URL?.trim() || "",
   frontendUrl: optional("FRONTEND_URL", "http://localhost:5173"),
+
+  // a free CoinGecko Demo key lets the prices call work from Render's
+  // shared datacenter IP. Without it, the service falls back to a snapshot.
+  coingeckoKey: optional("COINGECKO_KEY", ""),
 };
 
 export type AppConfig = typeof config;

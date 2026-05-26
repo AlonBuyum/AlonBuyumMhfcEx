@@ -14,6 +14,8 @@ services:
         generateValue: true
       - key: FRONTEND_URL
         value: https://alon-buyum-mhfc-ex.vercel.app
+      - key: COINGECKO_KEY
+        sync: false
       - key: DATABASE_URL
         fromDatabase:
           name: crypto-advisor-db

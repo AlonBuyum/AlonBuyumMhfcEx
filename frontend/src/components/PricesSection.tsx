@@ -70,7 +70,13 @@ export function PricesSection() {
       ) : !data || data.coins.length === 0 ? (
         <Message severity="info" text="No price data available" />
       ) : (
-        <DataTable value={data.coins} stripedRows size="small" responsiveLayout="scroll">
+        <>
+          {data.usedFallback ? (
+            <div className="fallback-tag" style={{ marginBottom: "0.75rem" }}>
+              Showing a recent fallback (live prices unavailable)
+            </div>
+          ) : null}
+          <DataTable value={data.coins} stripedRows size="small" responsiveLayout="scroll">
           <Column header="Coin" body={NameCell} />
           <Column
             header="Price"
@@ -83,7 +89,8 @@ export function PricesSection() {
             body={(coin: CoinPrice) => formatMarketCap(coin.market_cap)}
             bodyStyle={{ fontVariantNumeric: "tabular-nums" }}
           />
-        </DataTable>
+          </DataTable>
+        </>
       )}
     </Card>
   );

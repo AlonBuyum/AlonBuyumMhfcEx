@@ -24,6 +24,7 @@ export interface CoinPrice {
 
 export interface PricesResponse {
   coins: CoinPrice[];
+  usedFallback: boolean;
 }
 
 export interface Meme {

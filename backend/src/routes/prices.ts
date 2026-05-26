@@ -5,8 +5,8 @@ const router = Router();
 
 router.get("/", async (_req, res, next) => {
   try {
-    const coins = await fetchPrices();
-    res.json({ coins });
+    const result = await fetchPrices();
+    res.json(result);
   } catch (err) {
     next(err);
   }
